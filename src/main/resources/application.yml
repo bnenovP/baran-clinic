@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: baran-clinic
+  datasource:
+    url: jdbc:postgresql://localhost:5432/baran_clinic_db
+    username: postgres
+    password: admin123
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        ddl-auto: update
+    show-sql: true
