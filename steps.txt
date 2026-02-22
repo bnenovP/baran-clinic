@@ -1,0 +1,72 @@
+### BaranClinic Platform: Developer Roadmap & Execution Plan
+**Role: Developer/Owner** | **Platform Vision:** Enterprise-grade Veterinary SaaS
+
+---
+
+### PHASE 1: CORE DOMAIN DEVELOPMENT (Backend & Logic)
+*Your Goal: Build the functional foundation of the microservices.*
+
+#### 1.1: CRM & Patient Management (`crm-service`)
+- [ ] **Data Modeling:** Implement `Owner` and `Pet` entities using JPA/PostgreSQL.
+- [ ] **DDD Patterns:** Use Value Objects for `Address` and `Breed`. Define clear Aggregate boundaries.
+- [ ] **Audit Trail:** Implement a basic event log or integrate **Axon Framework** for full event sourcing of medical history.
+- [ ] **API Design:** Create REST endpoints for patient registration and owner profiles.
+
+#### 1.2: Appointment & Scheduling Engine (`booking-service`)
+- [ ] **Concurrency:** Implement distributed locking with **Redis/Redisson** to prevent double-booking slots.
+- [ ] **Saga Pattern:** Implement an orchestration Saga (using **Spring Statemachine**) to coordinate booking, payment, and confirmation.
+- [ ] **Notification Trigger:** Publish `AppointmentConfirmedEvent` to Kafka for downstream services.
+
+#### 1.3: Clinical Notes & AI Integration (`clinical-service`)
+- [ ] **Schema-less Storage:** Use **MongoDB** for flexible SOAP (Subjective, Objective, Assessment, Plan) notes.
+- [ ] **AI Bridge:** Integrate **AWS Transcribe Medical** or a custom NLP service to process voice-to-text notes.
+- [ ] **Search:** Sync clinical records to **Elasticsearch** for high-performance medical terminology search.
+
+#### 1.4: Billing & Inventory (`billing-service` & `inventory-service`)
+- [ ] **Transactional Outbox:** Ensure inventory is decremented only after a successful billing transaction.
+- [ ] **Payment Integration:** Connect with **Stripe API** for handling clinic payments.
+- [ ] **Stock Alerts:** Create a scheduled job to notify when medicine/supplies fall below threshold.
+
+---
+
+### PHASE 2: CI/CD PIPELINE (Automation & Quality)
+*Your Goal: Automate testing and deployment for rapid delivery.*
+
+#### 2.1: Testing Strategy
+- [ ] **Unit/Integration:** Write tests using **JUnit 5** and **Testcontainers**. Aim for 80%+ coverage.
+- [ ] **Contract Testing:** Implement **Spring Cloud Contract** to prevent breaking changes between microservices.
+- [ ] **E2E:** Set up **Playwright** for critical path testing (e.g., "Owner books appointment").
+
+#### 2.2: Infrastructure as Code & Pipeline
+- [ ] **Containerization:** Write multi-stage `Dockerfiles` for each service.
+- [ ] **CI Workflow:** Configure **GitHub Actions** to build, test, and scan images with **Trivy**.
+- [ ] **GitOps:** Set up **ArgoCD** to sync your Kubernetes manifests with the cluster state.
+
+---
+
+### PHASE 3: DEVOPS & RELIABILITY (Infrastructure & Security)
+*Your Goal: Ensure the platform is secure, observable, and scalable.*
+
+#### 3.1: Cloud Infrastructure (AWS/K8s)
+- [ ] **Terraform:** Define VPC, EKS, RDS, and Redis modules.
+- [ ] **Service Mesh:** Deploy **Istio** for mTLS and traffic management.
+- [ ] **Scaling:** Configure **Karpenter** for efficient node auto-scaling.
+
+#### 3.2: Security & Identity
+- [ ] **OIDC:** Set up **Keycloak** or **Auth0** for centralized authentication.
+- [ ] **Secret Management:** Use **HashiCorp Vault** to store database credentials and API keys.
+- [ ] **RBAC:** Implement role-based access for Vets, Admins, and Receptionists.
+
+#### 3.3: Observability
+- [ ] **Metrics/Logs:** Deploy **Prometheus**, **Grafana**, and **Loki**.
+- [ ] **Tracing:** Integrate **Micrometer Tracing** (Zipkin/Tempo) to debug cross-service requests.
+- [ ] **Alerting:** Set up Slack/PagerDuty alerts for high error rates or latency.
+
+---
+
+### Tech Stack Checklist
+- [ ] **Language:** Java 21 (Spring Boot 3.x)
+- [ ] **Messaging:** Apache Kafka
+- [ ] **Cache/Lock:** Redis
+- [ ] **DBs:** PostgreSQL, MongoDB, Elasticsearch
+- [ ] **Infra:** AWS, Kubernetes, Terraform, ArgoCD

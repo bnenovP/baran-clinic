@@ -1,0 +1,53 @@
+### BaranClinic Platform: Business-Driven Roadmap (Dog Edition)
+**Role: System Architect / Product Owner** | **Developer: User**
+
+---
+
+### 🏛️ ARCHITECTURAL STRATEGY: "Monolith First"
+We build a **Modular Monolith** using **DDD**.
+**Phase 1 Goal:** Deliver a specialized Dog MVP.
+
+---
+
+### 📋 ACTIVE ASSIGNMENT: CRM PERSISTENCE
+#### Business Case: "Canine Identity & Persistent Enrollment"
+*Goal: Ensure dogs and owners are securely stored with unique identification.*
+
+- [ ] **JPA Persistence Mapping:**
+    - Map `Owner` and `Dog` entities to PostgreSQL.
+    - Isolate CRM tables (e.g., prefix with `crm_`).
+- [ ] **Unique Canine Identity:**
+    - Enforce database-level uniqueness for `MicrochipID`.
+    - Correctly store `DogWeight` (value + unit).
+- [ ] **Schema Evolution:**
+    - Implement Flyway migration (`V1__init_crm_schema.sql`).
+- [ ] **Repository Implementation:**
+    - Implement `OwnerRepository` and `DogRepository` using Spring Data JPA.
+
+---
+
+### 📋 FUTURE BUSINESS CASES (Backlog)
+
+#### 1. Clinical: "The SOAP Record"
+*Goal: Capture medical details during a dog's visit.*
+- Requirements: Store SOAP notes in MongoDB linked to a Dog ID.
+- Specialized Logic: Handle dog-specific symptoms and physical exam fields.
+
+#### 2. Scheduling: "The Grooming & Checkup Slot"
+*Goal: Manage clinic capacity and prevent double-booking.*
+- Requirements: Reserve time slots for specific dogs.
+- Specialized Logic: Check breed-specific grooming duration.
+
+#### 3. Security: "Clinic Access Control"
+*Goal: Protect medical data.*
+- Requirements: Role-based access (Vet, Receptionist).
+
+---
+
+### 🛠️ ARCHITECT'S GUIDELINES
+1. **Business Case First:** I provide the use case; you implement the logic.
+2. **Dog Specialization:** Focus exclusively on canine requirements for the MVP.
+3. **Context Isolation:** One context must not query another's database tables.
+
+---
+*Status: Awaiting Developer implementation of CRM Persistence.*
