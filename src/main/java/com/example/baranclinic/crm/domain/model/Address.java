@@ -1,4 +1,4 @@
-package com.example.baranclinic.crm.data;
+package com.example.baranclinic.crm.domain.model;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;

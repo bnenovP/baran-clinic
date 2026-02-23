@@ -1,7 +1,7 @@
 package com.example.baranclinic.clinical.domain.entity;
 
-import com.example.baranclinic.clinical.domain.EntryType;
-import com.example.baranclinic.crm.data.entity.Dog;
+import com.example.baranclinic.clinical.domain.valueobject.EntryType;
+import com.example.baranclinic.crm.domain.entity.Dog;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

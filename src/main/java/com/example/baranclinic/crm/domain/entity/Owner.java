@@ -1,6 +1,6 @@
-package com.example.baranclinic.crm.data.entity;
+package com.example.baranclinic.crm.domain.entity;
 
-import com.example.baranclinic.crm.data.Address;
+import com.example.baranclinic.crm.domain.model.Address;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;

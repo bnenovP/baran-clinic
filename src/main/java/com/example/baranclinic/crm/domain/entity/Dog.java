@@ -1,4 +1,4 @@
-package com.example.baranclinic.crm.data.entity;
+package com.example.baranclinic.crm.domain.entity;
 
 import com.example.baranclinic.clinical.domain.entity.MedicalRecordEntry;
 import jakarta.persistence.CascadeType;

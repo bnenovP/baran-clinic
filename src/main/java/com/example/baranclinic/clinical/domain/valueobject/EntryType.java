@@ -1,4 +1,4 @@
-package com.example.baranclinic.clinical.domain;
+package com.example.baranclinic.clinical.domain.valueobject;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
