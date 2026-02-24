@@ -5,9 +5,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -17,6 +20,8 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
+@Table(name = "providers")
 public class Provider {
 
     @Id
@@ -41,6 +46,7 @@ public class Provider {
     @NotBlank
     private String phoneNumber;
 
+    @Column(name = "is_active", nullable = false)
     private boolean active = true;
 
     private void providerDeactivate() {
