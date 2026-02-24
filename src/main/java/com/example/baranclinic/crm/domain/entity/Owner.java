@@ -9,6 +9,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -24,6 +26,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "owners")
 public class Owner {
 
     @Id
@@ -49,4 +52,7 @@ public class Owner {
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private List<Dog> dogs;
 
+    public void addDog(Dog dog) {
+        dogs.add(dog);
+    }
 }
