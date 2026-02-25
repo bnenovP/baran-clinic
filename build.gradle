@@ -2,6 +2,8 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '4.0.3'
     id 'io.spring.dependency-management' version '1.1.7'
+    id 'jacoco' // for test coverage
+    id("org.sonarqube") version "7.2.2.6593"
 }
 
 group = 'com.example.baran-clinic'
@@ -34,4 +36,33 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+tasks.named('sonar'). configure {
+    dependsOn tasks.named('jacocoTestReport')
+}
+
+jacoco {
+    toolVersion = '0.8.13'
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = true
+        html.required = true
+    }
+}
+
+sonarqube {
+    properties {
+        property "sonar.host.url", "http://localhost:9000"
+        property "sonar.projectKey", "baran-clinic"
+        property "sonar.projectName", "Baran Clinic"
+        property "sonar.sources", "src/main"
+        property "sonar.tests", "src/test"
+        // Modern way to get build directory
+        property "sonar.coverage.jacoco.xmlReportPaths", "${layout.buildDirectory.get().asFile}/reports/jacoco/test/jacocoTestReport.xml"
+        property "sonar.junit.reportPaths", "${layout.buildDirectory.get().asFile}/test-results/test"
+    }
 }
