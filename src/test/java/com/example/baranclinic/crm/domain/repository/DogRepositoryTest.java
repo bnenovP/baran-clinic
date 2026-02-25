@@ -3,7 +3,6 @@ package com.example.baranclinic.crm.domain.repository;
 import com.example.baranclinic.crm.domain.entity.Dog;
 import com.example.baranclinic.crm.domain.entity.Owner;
 import com.example.baranclinic.crm.domain.model.Address;
-import org.jspecify.annotations.NonNull;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
