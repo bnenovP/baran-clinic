@@ -26,21 +26,21 @@ public class OwnerMapper {
         return owner;
     }
 
-    public Owner fromOwnerResponseDTOtoOwner(OwnerResponseDTO ownerResponseDTO) {
-        Owner owner = Owner.builder()
-                .id(ownerResponseDTO.getId())
-                .firstName(ownerResponseDTO.getFirstName())
-                .lastName(ownerResponseDTO.getLastName())
-                .phoneNumber(ownerResponseDTO.getPhoneNumber())
-                .email(ownerResponseDTO.getEmail())
-                .address(ownerResponseDTO.getAddress())
-                .dogs(ownerResponseDTO.getDogs() != null ?
-                        ownerResponseDTO.getDogs()
+    public OwnerResponseDTO fromOwnerToResponseOwnerDTO(Owner owner) {
+        OwnerResponseDTO ownerResponseDTO = OwnerResponseDTO.builder()
+                .id(owner.getId())
+                .firstName(owner.getFirstName())
+                .lastName(owner.getLastName())
+                .phoneNumber(owner.getPhoneNumber())
+                .email(owner.getEmail())
+                .address(owner.getAddress())
+                .dogs(owner.getDogs() != null ?
+                        owner.getDogs()
                                 .stream()
-                                .map(dogMapper::mapDogSummaryDTOtoDog).toList() : List.of())
+                                .map(dogMapper::mapDogToDogSummary).toList() : List.of())
                 .build();
 
-        return owner;
+        return ownerResponseDTO;
     }
 
 }
