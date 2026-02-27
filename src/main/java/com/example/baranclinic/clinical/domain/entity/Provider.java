@@ -12,11 +12,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.UUID;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -35,20 +37,19 @@ public class Provider {
     private String lastName;
 
     @NotBlank
-    @Column(unique = true, updatable = false)
+    @Column(unique = true)
     private String licenseNumber;
 
     @Email
-    @NotBlank
     private String email;
 
-    @NotBlank
     private String phoneNumber;
 
-    @Column(name = "is_active", nullable = false)
+    @Column(name = "is_active")
+    @Builder.Default
     private boolean active = true;
 
-    private void providerDeactivate() {
+    public void deactivate() {
         this.active = false;
     }
 }

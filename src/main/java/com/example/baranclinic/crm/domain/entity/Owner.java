@@ -17,6 +17,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -48,10 +49,15 @@ public class Owner {
     @Email
     private String email;
 
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
-    private List<Dog> dogs;
+    @Builder.Default
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Dog> dogs = new ArrayList<>();
 
     public void addDog(Dog dog) {
+        if (dogs == null) {
+            dogs = new java.util.ArrayList<>();
+        }
         dogs.add(dog);
+        dog.setOwner(this);
     }
 }
