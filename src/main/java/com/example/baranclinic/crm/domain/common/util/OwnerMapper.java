@@ -1,4 +1,4 @@
-package com.example.baranclinic.crm.domain.util;
+package com.example.baranclinic.crm.domain.common.util;
 
 import com.example.baranclinic.crm.domain.dto.request.OwnerRequestDTO;
 import com.example.baranclinic.crm.domain.dto.response.OwnerResponseDTO;
