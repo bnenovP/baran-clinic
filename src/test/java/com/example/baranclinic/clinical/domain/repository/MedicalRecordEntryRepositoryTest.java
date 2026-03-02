@@ -8,17 +8,15 @@ import com.example.baranclinic.crm.domain.entity.Owner;
 import com.example.baranclinic.crm.domain.model.Address;
 import com.example.baranclinic.crm.domain.repository.DogRepository;
 import com.example.baranclinic.crm.domain.repository.OwnerRepository;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
@@ -36,12 +34,12 @@ class MedicalRecordEntryRepositoryTest {
     @Autowired
     private OwnerRepository ownerRepository;
 
-    @BeforeEach
+    @AfterEach
     void cleanUp() {
+        medicalRecordEntryRepository.deleteAll();
+        dogRepository.deleteAll();
         providerRepository.deleteAll();
         ownerRepository.deleteAll();
-        dogRepository.deleteAll();
-        medicalRecordEntryRepository.deleteAll();
     }
 
     @Test
@@ -95,7 +93,6 @@ class MedicalRecordEntryRepositoryTest {
                 .lastName("Smith")
                 .phoneNumber("+49987654321")
                 .address(address)
-                .dogs(new ArrayList<>())
                 .build();
     }
 

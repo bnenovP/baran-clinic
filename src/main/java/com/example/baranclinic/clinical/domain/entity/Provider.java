@@ -50,11 +50,12 @@ public class Provider {
 
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MedicalRecordEntry> medicalRecordEntries;
-
-    @Column(name = "is_active")
     @Builder.Default
+    @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MedicalRecordEntry> medicalRecordEntries = new ArrayList<>();
+
+    @Builder.Default
+    @Column(name = "is_active")
     private boolean active = true;
 
     public void deactivate() {
