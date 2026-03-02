@@ -55,7 +55,7 @@ public class Owner {
 
     public void addDog(Dog dog) {
         if (dogs == null) {
-            dogs = new java.util.ArrayList<>();
+            dogs = new ArrayList<>();
         }
         dogs.add(dog);
         dog.setOwner(this);
