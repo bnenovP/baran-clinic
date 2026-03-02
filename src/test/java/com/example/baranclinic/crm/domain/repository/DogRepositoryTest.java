@@ -3,13 +3,14 @@ package com.example.baranclinic.crm.domain.repository;
 import com.example.baranclinic.crm.domain.entity.Dog;
 import com.example.baranclinic.crm.domain.entity.Owner;
 import com.example.baranclinic.crm.domain.model.Address;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,6 +24,12 @@ class DogRepositoryTest {
 
     @Autowired
     private OwnerRepository ownerRepository;
+
+    @AfterEach
+    void setUp() {
+        dogRepository.deleteAll();
+        ownerRepository.deleteAll();
+    }
 
     @Test
     void shouldSaveAndFindDog() {
@@ -60,7 +67,6 @@ class DogRepositoryTest {
                 .lastName("Smith")
                 .phoneNumber("+49987654321")
                 .address(address)
-                .dogs(new ArrayList<>())
                 .build();
     }
 }

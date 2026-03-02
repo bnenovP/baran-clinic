@@ -9,6 +9,8 @@ import java.util.UUID;
 
 @Repository
 public interface MedicalRecordEntryRepository extends JpaRepository<MedicalRecordEntry, UUID> {
+
     List<MedicalRecordEntry> findByDogId(UUID dogId);
+
     List<MedicalRecordEntry> findByType(MedicalRecordEntry.EntryType type);
 }
