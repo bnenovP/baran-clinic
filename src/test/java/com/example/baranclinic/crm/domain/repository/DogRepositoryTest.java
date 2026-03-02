@@ -3,6 +3,7 @@ package com.example.baranclinic.crm.domain.repository;
 import com.example.baranclinic.crm.domain.entity.Dog;
 import com.example.baranclinic.crm.domain.entity.Owner;
 import com.example.baranclinic.crm.domain.model.Address;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,6 +24,12 @@ class DogRepositoryTest {
 
     @Autowired
     private OwnerRepository ownerRepository;
+
+    @BeforeEach
+    void setUp() {
+        dogRepository.deleteAll();
+        ownerRepository.deleteAll();
+    }
 
     @Test
     void shouldSaveAndFindDog() {
