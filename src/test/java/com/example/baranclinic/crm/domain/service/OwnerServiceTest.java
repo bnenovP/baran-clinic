@@ -30,7 +30,7 @@ class OwnerServiceTest {
     private OwnerService ownerService;
 
     @Test
-    public void saveOwner() {
+    void saveOwner() {
         // Arrange
         Owner owner = createOwner();
         OwnerRequestDTO ownerRequestDTO = createOwnerRequestDTO();
@@ -52,7 +52,7 @@ class OwnerServiceTest {
     }
 
     @Test
-    public void getOwnerById() {
+    void getOwnerById() {
         // Arrange
         Owner owner = createOwner();
         OwnerResponseDTO ownerResponseDTO = createOwnerResponseDTO();
