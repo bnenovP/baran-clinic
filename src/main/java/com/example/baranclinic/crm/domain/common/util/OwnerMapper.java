@@ -15,19 +15,17 @@ public class OwnerMapper {
     private final DogMapper dogMapper;
 
     public Owner fromOwnerRequestDTOtoOwner(OwnerRequestDTO ownerRequestDTO) {
-        Owner owner = Owner.builder()
+        return Owner.builder()
                 .firstName(ownerRequestDTO.getFirstName())
                 .lastName(ownerRequestDTO.getLastName())
                 .phoneNumber(ownerRequestDTO.getPhoneNumber())
                 .email(ownerRequestDTO.getEmail())
                 .address(ownerRequestDTO.getAddress())
                 .build();
-
-        return owner;
     }
 
     public OwnerResponseDTO fromOwnerToResponseOwnerDTO(Owner owner) {
-        OwnerResponseDTO ownerResponseDTO = OwnerResponseDTO.builder()
+        return OwnerResponseDTO.builder()
                 .id(owner.getId())
                 .firstName(owner.getFirstName())
                 .lastName(owner.getLastName())
@@ -39,8 +37,6 @@ public class OwnerMapper {
                                 .stream()
                                 .map(dogMapper::mapDogToDogSummary).toList() : List.of())
                 .build();
-
-        return ownerResponseDTO;
     }
 
 }

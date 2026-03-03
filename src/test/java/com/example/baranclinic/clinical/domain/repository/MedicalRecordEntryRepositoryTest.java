@@ -1,6 +1,5 @@
 package com.example.baranclinic.clinical.domain.repository;
 
-
 import com.example.baranclinic.clinical.domain.entity.MedicalRecordEntry;
 import com.example.baranclinic.clinical.domain.entity.Provider;
 import com.example.baranclinic.crm.domain.entity.Dog;
@@ -63,7 +62,7 @@ class MedicalRecordEntryRepositoryTest {
                 .type(MedicalRecordEntry.EntryType.VACCINATION)
                 .notes("First vaccination")
                 .build();
-        MedicalRecordEntry savedMedicalRecordEntry = medicalRecordEntryRepository.save(medicalRecordEntry);
+        medicalRecordEntryRepository.save(medicalRecordEntry);
 
         // Act
         List<MedicalRecordEntry> existingMedicalRecordEntries = medicalRecordEntryRepository.findByDogId(dog.getId());
