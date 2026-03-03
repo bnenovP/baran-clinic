@@ -6,16 +6,16 @@ import com.example.baranclinic.crm.domain.model.Address;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
+import org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase;
 
 import java.time.LocalDate;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
-@Transactional
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class DogRepositoryTest {
 
     @Autowired
@@ -23,12 +23,6 @@ class DogRepositoryTest {
 
     @Autowired
     private OwnerRepository ownerRepository;
-
-    @AfterEach
-    void setUp() {
-        dogRepository.deleteAll();
-        ownerRepository.deleteAll();
-    }
 
     @Test
     void shouldSaveAndFindDog() {
@@ -47,7 +41,7 @@ class DogRepositoryTest {
 
         // Act
         Dog savedDog = dogRepository.save(dog);
-        owner.addDog(dog);
+        owner.addDog(savedDog);
 
         // Assert
         Optional<Dog> foundDog = dogRepository.findByMicrochipId("CHIP123");
