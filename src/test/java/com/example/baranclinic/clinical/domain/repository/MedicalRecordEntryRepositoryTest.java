@@ -7,10 +7,10 @@ import com.example.baranclinic.crm.domain.entity.Owner;
 import com.example.baranclinic.crm.domain.model.Address;
 import com.example.baranclinic.crm.domain.repository.DogRepository;
 import com.example.baranclinic.crm.domain.repository.OwnerRepository;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
+import org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,7 +18,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class MedicalRecordEntryRepositoryTest {
 
     @Autowired
@@ -32,14 +33,6 @@ class MedicalRecordEntryRepositoryTest {
 
     @Autowired
     private OwnerRepository ownerRepository;
-
-    @AfterEach
-    void cleanUp() {
-        medicalRecordEntryRepository.deleteAll();
-        dogRepository.deleteAll();
-        providerRepository.deleteAll();
-        ownerRepository.deleteAll();
-    }
 
     @Test
     void findMedicalRecordEntriesByDogId() {
