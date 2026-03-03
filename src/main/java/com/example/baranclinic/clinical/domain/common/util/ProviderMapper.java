@@ -6,7 +6,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ProviderMapper {
-    public Provider toEntity(ProviderRequestDTO request) {
+
+    public Provider mapProviderRequestDTOtoProvider(ProviderRequestDTO request) {
         return Provider.builder()
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())

@@ -35,7 +35,9 @@ public class MedicalRecordEntryService {
             throw new IllegalStateException("Cannot create entry for inactive provider");
         }
 
-        MedicalRecordEntry entry = medicalRecordMapper.toEntity(request, dog, provider);
+        MedicalRecordEntry entry = medicalRecordMapper
+                .fromMedicalRecordEntryRequestDTOtoMedicalRecordEntry(request, dog, provider);
+
         return medicalRecordEntryRepository.save(entry);
     }
 }
