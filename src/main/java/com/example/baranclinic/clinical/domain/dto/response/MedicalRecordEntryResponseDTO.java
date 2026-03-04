@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @Value
 @Builder
-public class MedicalRecordResponseDTO {
+public class MedicalRecordEntryResponseDTO {
 
     UUID id;
 
@@ -22,6 +22,6 @@ public class MedicalRecordResponseDTO {
     LocalDate date;
 
     MedicalRecordEntry.EntryType type;
-    
+
     String notes;
 }

@@ -1,7 +1,7 @@
 package com.example.baranclinic.clinical.domain.common.util;
 
 import com.example.baranclinic.clinical.domain.dto.request.MedicalRecordEntryRequestDTO;
-import com.example.baranclinic.clinical.domain.dto.response.MedicalRecordResponseDTO;
+import com.example.baranclinic.clinical.domain.dto.response.MedicalRecordEntryResponseDTO;
 import com.example.baranclinic.clinical.domain.entity.MedicalRecordEntry;
 import com.example.baranclinic.clinical.domain.entity.Provider;
 import com.example.baranclinic.crm.domain.entity.Dog;
@@ -26,10 +26,10 @@ public class MedicalRecordMapper {
                 .build();
     }
 
-    public MedicalRecordResponseDTO fromMedicalRecordEntryToMedicalRecordResponseDTO(
+    public MedicalRecordEntryResponseDTO fromMedicalRecordEntryToMedicalRecordResponseDTO(
             MedicalRecordEntry entry
     ) {
-        return MedicalRecordResponseDTO.builder()
+        return MedicalRecordEntryResponseDTO.builder()
                 .id(entry.getId())
                 .dog(entry.getDog())
                 .provider(entry.getProvider())
