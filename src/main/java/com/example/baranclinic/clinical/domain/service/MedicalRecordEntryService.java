@@ -1,7 +1,9 @@
 package com.example.baranclinic.clinical.domain.service;
 
+import com.example.baranclinic.clinical.domain.common.exception.ProviderNotActiveException;
 import com.example.baranclinic.clinical.domain.common.util.MedicalRecordMapper;
 import com.example.baranclinic.clinical.domain.dto.request.MedicalRecordEntryRequestDTO;
+import com.example.baranclinic.clinical.domain.dto.response.MedicalRecordEntryResponseDTO;
 import com.example.baranclinic.clinical.domain.entity.MedicalRecordEntry;
 import com.example.baranclinic.clinical.domain.entity.Provider;
 import com.example.baranclinic.clinical.domain.repository.MedicalRecordEntryRepository;
@@ -19,12 +21,15 @@ import org.springframework.transaction.annotation.Transactional;
 public class MedicalRecordEntryService {
 
     private final MedicalRecordEntryRepository medicalRecordEntryRepository;
+
     private final DogRepository dogRepository;
+
     private final ProviderRepository providerRepository;
+
     private final MedicalRecordMapper medicalRecordMapper;
 
     @Transactional
-    public MedicalRecordEntry createEntry(MedicalRecordEntryRequestDTO request) {
+    public MedicalRecordEntryResponseDTO createEntry(MedicalRecordEntryRequestDTO request) {
         Dog dog = dogRepository.findById(request.getDogId())
                 .orElseThrow(() -> new EntityNotFoundException("Dog not found"));
 
@@ -32,10 +37,13 @@ public class MedicalRecordEntryService {
                 .orElseThrow(() -> new EntityNotFoundException("Provider not found"));
 
         if (!provider.isActive()) {
-            throw new IllegalStateException("Cannot create entry for inactive provider");
+            throw new ProviderNotActiveException("Cannot create entry for inactive provider");
         }
 
-        MedicalRecordEntry entry = medicalRecordMapper.toEntity(request, dog, provider);
-        return medicalRecordEntryRepository.save(entry);
+        MedicalRecordEntry entry = medicalRecordMapper
+                .fromMedicalRecordEntryRequestDTOtoMedicalRecordEntry(request, dog, provider);
+        medicalRecordEntryRepository.save(entry);
+
+        return medicalRecordMapper.fromMedicalRecordEntryToMedicalRecordResponseDTO(entry);
     }
 }

@@ -17,6 +17,7 @@ import java.util.UUID;
 public class ProviderService {
 
     private final ProviderRepository providerRepository;
+
     private final ProviderMapper providerMapper;
 
     @Transactional
@@ -24,7 +25,7 @@ public class ProviderService {
         if (providerRepository.findByLicenseNumber(request.getLicenseNumber()).isPresent()) {
             throw new IllegalStateException("Provider with license " + request.getLicenseNumber() + " already exists");
         }
-        Provider provider = providerMapper.toEntity(request);
+        Provider provider = providerMapper.mapProviderRequestDTOtoProvider(request);
         return providerRepository.save(provider);
     }
 

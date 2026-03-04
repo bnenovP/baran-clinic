@@ -11,9 +11,18 @@ import java.util.UUID;
 @Value
 @Builder
 public class MedicalRecordEntryRequestDTO {
-    @NotNull UUID dogId;
-    @NotNull UUID providerId;
-    @NotNull MedicalRecordEntry.EntryType type;
+
+    @NotNull
+    UUID dogId;
+
+    @NotNull
+    UUID providerId;
+
+    @NotNull
+    MedicalRecordEntry.EntryType type;
+
     String notes;
+
+    @NotNull
     LocalDate date;
 }

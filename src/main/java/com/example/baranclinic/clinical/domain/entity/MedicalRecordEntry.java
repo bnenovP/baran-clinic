@@ -44,6 +44,7 @@ public class MedicalRecordEntry {
     @JoinColumn(name = "provider_id", nullable = false)
     private Provider provider;
 
+    @NotNull
     @Column(name = "date")
     private LocalDate date;
 

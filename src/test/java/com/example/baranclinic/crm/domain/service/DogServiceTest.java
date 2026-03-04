@@ -41,8 +41,13 @@ class DogServiceTest {
         // Arrange
         UUID ownerId = UUID.randomUUID();
         DogRequestDTO request = createDogRequestDTO(ownerId);
-        Owner owner = Owner.builder().id(ownerId).build();
-        Dog dog = Dog.builder().name("Rex").owner(owner).build();
+        Owner owner = Owner.builder()
+                .id(ownerId)
+                .build();
+        Dog dog = Dog.builder()
+                .name("Rex")
+                .owner(owner)
+                .build();
         DogResponseDTO response = createDogResponseDTO(ownerId);
 
         when(dogRepository.findByMicrochipId(request.getMicrochipId())).thenReturn(Optional.empty());
