@@ -16,8 +16,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import com.example.baranclinic.clinical.domain.common.exception.ProviderNotActiveException;
 
-import java.nio.file.ProviderNotFoundException;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.UUID;
@@ -116,7 +116,7 @@ class MedicalRecordEntryServiceTest {
                 .thenReturn(Optional.of(provider));
 
         // Act and Assert
-        assertThrows(ProviderNotFoundException.class,
+        assertThrows(ProviderNotActiveException.class,
                 () -> medicalRecordEntryService.createEntry(medicalRecordEntryRequestDTO));
     }
 
