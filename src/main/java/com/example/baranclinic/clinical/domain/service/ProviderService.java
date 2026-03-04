@@ -17,6 +17,7 @@ import java.util.UUID;
 public class ProviderService {
 
     private final ProviderRepository providerRepository;
+
     private final ProviderMapper providerMapper;
 
     @Transactional

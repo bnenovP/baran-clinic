@@ -48,13 +48,9 @@ class MedicalRecordEntryRepositoryTest {
         providerRepository.save(provider);
         Provider existingProvider = providerRepository.findById(provider.getId()).get();
 
-        MedicalRecordEntry medicalRecordEntry = MedicalRecordEntry.builder()
-                .dog(dog)
-                .provider(existingProvider)
-                .date(LocalDate.now().minusDays(10))
-                .type(MedicalRecordEntry.EntryType.VACCINATION)
-                .notes("First vaccination")
-                .build();
+        MedicalRecordEntry medicalRecordEntry = createMedicalRecordEntry(
+                dog, existingProvider, MedicalRecordEntry.EntryType.VACCINATION, "First vaccination"
+        );
         medicalRecordEntryRepository.save(medicalRecordEntry);
 
         // Act
@@ -64,6 +60,54 @@ class MedicalRecordEntryRepositoryTest {
         assertFalse(existingMedicalRecordEntries.isEmpty());
         assertEquals(1, existingMedicalRecordEntries.size());
         assertEquals(medicalRecordEntry.getId(), existingMedicalRecordEntries.get(0).getId());
+    }
+
+    @Test
+    void findMedicalRecordEntryByType() {
+        // Arrange
+        Owner owner = setUpOwner();
+        ownerRepository.save(owner);
+
+        Dog dog = setDog(owner);
+        dogRepository.save(dog);
+        owner.addDog(dog);
+
+        Provider provider = setUpProvider();
+        providerRepository.save(provider);
+        Provider existingProvider = providerRepository.findById(provider.getId()).get();
+
+        MedicalRecordEntry medicalRecordEntryVaccination = createMedicalRecordEntry(
+                dog, existingProvider, MedicalRecordEntry.EntryType.VACCINATION, "First vaccination"
+        );
+        MedicalRecordEntry medicalRecordEntryCheckup = createMedicalRecordEntry(
+                dog, existingProvider, MedicalRecordEntry.EntryType.CHECKUP, "Checkup after vaccination"
+        );
+        medicalRecordEntryRepository.save(medicalRecordEntryVaccination);
+        medicalRecordEntryRepository.save(medicalRecordEntryCheckup);
+
+        // Act
+        List<MedicalRecordEntry> medicalRecordEntries = medicalRecordEntryRepository
+                .findByType(MedicalRecordEntry.EntryType.VACCINATION);
+
+        // Assert
+        assertFalse(medicalRecordEntries.isEmpty());
+        assertEquals(1, medicalRecordEntries.size());
+        assertEquals(MedicalRecordEntry.EntryType.VACCINATION, medicalRecordEntries.getFirst().getType());
+    }
+
+    private static MedicalRecordEntry createMedicalRecordEntry(
+            Dog dog,
+            Provider existingProvider,
+            MedicalRecordEntry.EntryType type,
+            String notes
+    ) {
+        return MedicalRecordEntry.builder()
+                .dog(dog)
+                .provider(existingProvider)
+                .date(LocalDate.now().minusDays(10))
+                .type(type)
+                .notes(notes)
+                .build();
     }
 
     private Dog setDog(Owner owner) {
