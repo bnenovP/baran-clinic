@@ -1,5 +1,6 @@
 package com.example.baranclinic.clinical.domain.service;
 
+import com.example.baranclinic.clinical.domain.common.exception.LicenseDuplicationException;
 import com.example.baranclinic.clinical.domain.common.util.ProviderMapper;
 import com.example.baranclinic.clinical.domain.dto.request.ProviderRequestDTO;
 import com.example.baranclinic.clinical.domain.entity.Provider;
@@ -23,7 +24,7 @@ public class ProviderService {
     @Transactional
     public Provider onboardProvider(ProviderRequestDTO request) {
         if (providerRepository.findByLicenseNumber(request.getLicenseNumber()).isPresent()) {
-            throw new IllegalStateException("Provider with license " + request.getLicenseNumber() + " already exists");
+            throw new LicenseDuplicationException("Provider with license " + request.getLicenseNumber() + " already exists");
         }
         Provider provider = providerMapper.mapProviderRequestDTOtoProvider(request);
         return providerRepository.save(provider);
