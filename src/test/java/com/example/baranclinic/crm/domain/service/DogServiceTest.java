@@ -1,5 +1,6 @@
 package com.example.baranclinic.crm.domain.service;
 
+import com.example.baranclinic.crm.domain.common.exception.DogAlreadyExistsException;
 import com.example.baranclinic.crm.domain.common.util.DogMapper;
 import com.example.baranclinic.crm.domain.dto.request.DogRequestDTO;
 import com.example.baranclinic.crm.domain.dto.response.DogResponseDTO;
@@ -18,6 +19,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -37,7 +39,7 @@ class DogServiceTest {
     private DogService dogService;
 
     @Test
-    void registerDog_ShouldSaveAndReturnDog() {
+    void whenRegisterDog_thenSaveAndReturnDog() {
         // Arrange
         UUID ownerId = UUID.randomUUID();
         DogRequestDTO request = createDogRequestDTO(ownerId);
@@ -63,6 +65,26 @@ class DogServiceTest {
         assertThat(result).isNotNull();
         assertThat(result.getName()).isEqualTo("Rex");
         verify(dogRepository).save(any(Dog.class));
+    }
+
+    @Test
+    void whenRegisterAlreadyExistingDog_thenThrowDogAlreadyExistsException() {
+        // Arrange
+        UUID ownerId = UUID.randomUUID();
+
+        DogRequestDTO request = createDogRequestDTO(ownerId);
+        Owner owner = Owner.builder()
+                .id(ownerId)
+                .build();
+        Dog dog = Dog.builder()
+                .name("Rex")
+                .owner(owner)
+                .build();
+
+        when(dogRepository.findByMicrochipId(request.getMicrochipId())).thenReturn(Optional.of(dog));
+
+        // Act & Assert
+        assertThrows(DogAlreadyExistsException.class, () -> dogService.registerDog(request, ownerId));
     }
 
     private DogRequestDTO createDogRequestDTO(UUID ownerId) {
