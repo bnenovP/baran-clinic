@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class ProviderServiceTest {
+class ProviderServiceTest {
 
     private final UUID providerId = UUID.randomUUID();
 
@@ -92,7 +92,7 @@ public class ProviderServiceTest {
         when(providerRepository.findById(provider.getId())).thenReturn(Optional.empty());
 
         // Act & Assert
-        assertThrows(EntityNotFoundException.class, () -> providerService.deactivateProvider(provider.getId()));
+        assertThrows(EntityNotFoundException.class, () -> providerService.deactivateProvider(providerId));
     }
 
     private ProviderRequestDTO createProviderRequestDTO() {
