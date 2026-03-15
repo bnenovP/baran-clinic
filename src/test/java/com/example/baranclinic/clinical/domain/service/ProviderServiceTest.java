@@ -5,6 +5,7 @@ import com.example.baranclinic.clinical.domain.common.util.ProviderMapper;
 import com.example.baranclinic.clinical.domain.dto.request.ProviderRequestDTO;
 import com.example.baranclinic.clinical.domain.entity.Provider;
 import com.example.baranclinic.clinical.domain.repository.ProviderRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -15,6 +16,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
@@ -66,6 +68,31 @@ public class ProviderServiceTest {
 
         // Act & Assert
         assertThrows(LicenseDuplicationException.class, () -> providerService.onboardProvider(providerRequestDTO));
+    }
+
+    @Test
+    void whenDeactivateProvider_thenReturnProvider() {
+        // Arrange
+        Provider provider = createProvider();
+
+        when(providerRepository.findById(provider.getId())).thenReturn(Optional.of(provider));
+
+        // Act
+        providerService.deactivateProvider(provider.getId());
+
+        // Assert
+        assertFalse(provider.isActive());
+    }
+
+    @Test
+    void whenDeactivateInvalidProvider_thenThrowsEntityNotFoundException() {
+        // Arrange
+        Provider provider = createProvider();
+
+        when(providerRepository.findById(provider.getId())).thenReturn(Optional.empty());
+
+        // Act & Assert
+        assertThrows(EntityNotFoundException.class, () -> providerService.deactivateProvider(provider.getId()));
     }
 
     private ProviderRequestDTO createProviderRequestDTO() {
