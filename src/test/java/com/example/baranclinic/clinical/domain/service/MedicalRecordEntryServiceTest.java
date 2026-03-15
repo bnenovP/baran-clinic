@@ -2,6 +2,7 @@ package com.example.baranclinic.clinical.domain.service;
 
 import com.example.baranclinic.clinical.domain.common.util.MedicalRecordMapper;
 import com.example.baranclinic.clinical.domain.dto.request.MedicalRecordEntryRequestDTO;
+import com.example.baranclinic.clinical.domain.dto.response.MedicalRecordEntryResponseDTO;
 import com.example.baranclinic.clinical.domain.entity.MedicalRecordEntry;
 import com.example.baranclinic.clinical.domain.entity.Provider;
 import com.example.baranclinic.clinical.domain.repository.MedicalRecordEntryRepository;
@@ -22,12 +23,16 @@ import java.time.LocalDate;
 import java.util.Optional;
 import java.util.UUID;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 
 @ExtendWith(MockitoExtension.class)
 class MedicalRecordEntryServiceTest {
+
+    private final UUID dogId = UUID.randomUUID();
+    private final UUID providerId = UUID.randomUUID();
 
     @Mock
     private MedicalRecordEntryRepository medicalRecordEntryRepository;
@@ -45,11 +50,65 @@ class MedicalRecordEntryServiceTest {
     private MedicalRecordEntryService medicalRecordEntryService;
 
     @Test
+    void whenCreateMedicalRecordEntry_thenReturnMedicalRecordEntryResponseDTO() {
+        // Arrange
+        UUID medicalRecordEntryId = UUID.randomUUID();
+        Owner owner = createOwner();
+        Provider provider = createProvider(providerId);
+        Dog dog = createDog(dogId, owner);
+
+        MedicalRecordEntryRequestDTO medicalRecordEntryRequestDTO = MedicalRecordEntryRequestDTO
+                .builder()
+                .dogId(dogId)
+                .providerId(provider.getId())
+                .type(MedicalRecordEntry.EntryType.VACCINATION)
+                .date(LocalDate.now())
+                .build();
+
+        MedicalRecordEntry medicalRecordEntry = MedicalRecordEntry
+                .builder()
+                .id(medicalRecordEntryId)
+                .provider(provider)
+                .dog(dog)
+                .type(MedicalRecordEntry.EntryType.VACCINATION)
+                .date(LocalDate.now())
+                .build();
+
+        MedicalRecordEntryResponseDTO medicalRecordEntryResponseDTO = MedicalRecordEntryResponseDTO
+                .builder()
+                .id(medicalRecordEntryId)
+                .provider(provider)
+                .dog(dog)
+                .type(MedicalRecordEntry.EntryType.VACCINATION)
+                .date(LocalDate.now())
+                .build();
+
+        when(dogRepository.findById(dogId)).thenReturn(Optional.of(dog));
+        when(providerRepository.findById(medicalRecordEntryRequestDTO.getProviderId()))
+                .thenReturn(Optional.of(provider));
+        when(medicalRecordMapper.fromMedicalRecordEntryRequestDTOtoMedicalRecordEntry(
+                medicalRecordEntryRequestDTO,
+                dog,
+                provider
+                )
+        ).thenReturn(medicalRecordEntry);
+        when(medicalRecordMapper.fromMedicalRecordEntryToMedicalRecordResponseDTO(medicalRecordEntry))
+                .thenReturn(medicalRecordEntryResponseDTO);
+        // Act
+        MedicalRecordEntryResponseDTO expectedMedicalRecordEntryResponse =
+                medicalRecordEntryService.createEntry(medicalRecordEntryRequestDTO);
+
+        // Assert
+        assertEquals(medicalRecordEntryResponseDTO.getId(), expectedMedicalRecordEntryResponse.getId());
+        assertEquals(medicalRecordEntryResponseDTO.getType(), expectedMedicalRecordEntryResponse.getType());
+        assertEquals(medicalRecordEntryResponseDTO.getDate(), expectedMedicalRecordEntryResponse.getDate());
+        assertEquals(medicalRecordEntryResponseDTO.getProvider(), expectedMedicalRecordEntryResponse.getProvider());
+        assertEquals(medicalRecordEntryResponseDTO.getDog(), expectedMedicalRecordEntryResponse.getDog());
+    }
+
+    @Test
     void whenCreateMedicalRecordEntryWithNonExistingDog_throwEntityNotFoundException() {
         // Arrange
-        UUID dogId = UUID.randomUUID();
-        UUID providerId = UUID.randomUUID();
-
         MedicalRecordEntryRequestDTO medicalRecordEntryRequestDTO = MedicalRecordEntryRequestDTO
                 .builder()
                 .dogId(dogId)
@@ -69,9 +128,6 @@ class MedicalRecordEntryServiceTest {
     void whenCreateMedicalRecordEntryWithNonExistingProvider_throwEntityNotFoundException() {
         // Arrange
         Owner owner = createOwner();
-        UUID dogId = UUID.randomUUID();
-        UUID providerId = UUID.randomUUID();
-
         Dog dog = createDog(dogId, owner);
 
         MedicalRecordEntryRequestDTO medicalRecordEntryRequestDTO = MedicalRecordEntryRequestDTO
@@ -95,11 +151,7 @@ class MedicalRecordEntryServiceTest {
     void whenCreateMedicalRecordEntryWithInactiveProvider_throwEntityNotFoundException() {
         // Arrange
         Owner owner = createOwner();
-        UUID dogId = UUID.randomUUID();
-        UUID providerId = UUID.randomUUID();
-
         Provider provider = createProvider(providerId);
-
         Dog dog = createDog(dogId, owner);
 
         MedicalRecordEntryRequestDTO medicalRecordEntryRequestDTO = MedicalRecordEntryRequestDTO
