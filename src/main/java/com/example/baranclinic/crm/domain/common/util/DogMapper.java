@@ -20,7 +20,7 @@ public class DogMapper {
                 .build();
     }
 
-    public Dog mapDogSummaryDTOtoDog(DogRequestDTO dogRequestDTO, Owner owner) {
+    public Dog mapDogRequestDTOtoDog(DogRequestDTO dogRequestDTO, Owner owner) {
         return Dog.builder()
                 .name(dogRequestDTO.getName())
                 .microchipId(dogRequestDTO.getMicrochipId())

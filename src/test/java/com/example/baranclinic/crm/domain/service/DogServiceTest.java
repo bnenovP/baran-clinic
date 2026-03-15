@@ -54,7 +54,7 @@ class DogServiceTest {
 
         when(dogRepository.findByMicrochipId(request.getMicrochipId())).thenReturn(Optional.empty());
         when(ownerRepository.findById(ownerId)).thenReturn(Optional.of(owner));
-        when(dogMapper.mapDogSummaryDTOtoDog(request, owner)).thenReturn(dog);
+        when(dogMapper.mapDogRequestDTOtoDog(request, owner)).thenReturn(dog);
         when(dogRepository.save(dog)).thenReturn(dog);
         when(dogMapper.mapDogToDogResponseDTO(dog)).thenReturn(response);
 
