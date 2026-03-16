@@ -46,10 +46,25 @@ services:
       - sonarqube_logs:/opt/sonarqube/logs
       - sonarqube_temp:/opt/sonarqube/temp
 
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    restart: unless-stopped
+    ports:
+      - "9001:8080"   # Jenkins web UI (mapped to host port 9001)
+      - "50000:50000" # For connecting Jenkins agents if needed
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - JAVA_OPTS=-Dhudson.model.DirectoryBrowserSupport.CSP="default-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';"
+
 networks:
   clinictnet:
     driver: bridge
   sonarnet:
+    driver: bridge
+  jenkins:
     driver: bridge
 
 volumes:
@@ -59,3 +74,4 @@ volumes:
   sonarqube_temp:
   postgresql:
   postgresql_data:
+  jenkins_home:
