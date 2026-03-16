@@ -36,7 +36,7 @@ public class DogService {
         Owner owner = ownerRepository.findById(ownerId)
                 .orElseThrow(() -> new EntityNotFoundException("Owner not found with ID: " + ownerId));
             
-        Dog dog = dogMapper.mapDogSummaryDTOtoDog(dogRequestDTO, owner);
+        Dog dog = dogMapper.mapDogRequestDTOtoDog(dogRequestDTO, owner);
         Dog savedDog = dogRepository.save(dog);
     
         return dogMapper.mapDogToDogResponseDTO(savedDog);
