@@ -14,6 +14,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -37,7 +38,7 @@ class OwnerRepositoryTest {
         assertThat(foundOwner).isPresent();
         assertThat(foundOwner.get().getFirstName()).isEqualTo("John");
         assertThat(foundOwner.get().getAddress().getCity()).isEqualTo("Berlin");
-        assertThat(foundOwner.get().getDogs().isEmpty());
+        assertTrue(foundOwner.get().getDogs().isEmpty());
     }
 
     @Test
