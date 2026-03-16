@@ -23,7 +23,7 @@ class OwnerRepositoryTest {
     private OwnerRepository ownerRepository;
 
     @Test
-    void shouldSaveAndFindOwner() {
+    void whenFindOwnerFindById_thenReturnOwner() {
         // Arrange
         Owner owner = createOwner();
 
@@ -37,10 +37,11 @@ class OwnerRepositoryTest {
         assertThat(foundOwner).isPresent();
         assertThat(foundOwner.get().getFirstName()).isEqualTo("John");
         assertThat(foundOwner.get().getAddress().getCity()).isEqualTo("Berlin");
+        assertThat(foundOwner.get().getDogs().isEmpty());
     }
 
     @Test
-    void addDogToOwner() {
+    void whenAddDogToOwner_thenAddDogToOwner() {
         // Arrange
         Owner owner = createOwner();
 
