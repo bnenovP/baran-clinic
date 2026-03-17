@@ -9,7 +9,7 @@ pipeline {
         stage('Unit Tests - Backend') {
             steps {
                 withGradle() {
-                    sh './gradlew clean test --tests com.common.*'
+                    sh './gradlew clean test --tests *.service'
                 }
             }
         }
