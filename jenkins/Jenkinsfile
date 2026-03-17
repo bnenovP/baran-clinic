@@ -9,7 +9,7 @@ pipeline {
         stage('Unit Tests - Backend') {
             steps {
                 withGradle() {
-                    sh './gradlew clean test --tests *.service'
+                    sh './gradlew clean test --exclude-tests com.example.baranclinic.clinical.domain.repository* --exclude-tests com.example.baranclinic.crm.domain.repository*'
                 }
             }
         }
