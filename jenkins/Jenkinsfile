@@ -10,7 +10,7 @@ pipeline {
             steps {
                 echo 'Running Unit Tests'
                 withGradle() {
-                    sh './gradlew clean test'
+                    sh 'gradle clean test'
                 }
             }
         }
