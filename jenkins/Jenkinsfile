@@ -8,6 +8,7 @@ pipeline {
                     image 'gradle'
                     reuseNode true
                 }
+            }
             steps {
                 dir('srs/test') {
                     sh './gradlew clean test'
