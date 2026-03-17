@@ -9,6 +9,7 @@ pipeline {
         stage('Unit Tests - Backend') {
             steps {
                     withGradle() {
+                        dir ('baran-clinic/src/test/com/example/baranclinic/crm/domain/common')
                         sh './gradlew clean test'
                 }
             }
