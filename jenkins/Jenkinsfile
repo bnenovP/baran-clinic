@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Unit Tests - Backend') {
             steps {
-                withGradle(gradleWrapperFile: './gradlew') {
+                withGradle() {
                     sh './gradlew clean test --tests com.common.*'
                 }
             }
