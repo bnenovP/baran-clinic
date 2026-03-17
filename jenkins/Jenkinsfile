@@ -5,7 +5,7 @@ pipeline {
         stage('Unit Tests - Backend') {
             steps {
                 dir('srs/test') {
-                    ./gradlew clean test
+                    sh './gradlew clean test'
                 }
             }
         }
