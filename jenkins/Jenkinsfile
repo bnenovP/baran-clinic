@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        gradle 'baran-clinic-gradle'
+        gradle 'gradle-baran-clinic'
     }
 
     stages {
