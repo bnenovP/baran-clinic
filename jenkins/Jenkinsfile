@@ -10,6 +10,7 @@ pipeline {
             steps {
                 echo 'Running Unit Tests'
                 withGradle() {
+                    dir ('src/test/java/com/example/baranclinic/crm/domain/service')
                     sh './gradlew clean test'
                 }
             }
