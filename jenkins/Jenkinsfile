@@ -8,12 +8,12 @@ pipeline {
     stages {
         stage('Unit Tests - Backend') {
             steps {
-                    withGradle() {
-                        dir ('baran-clinic/src/test/com/example/baranclinic/crm/domain/common') {
+                    dir ('baran-clinic/src/test/com/example/baranclinic/crm/domain/common') {
+                        withGradle() {
                             sh './gradlew clean test'
                         }
+                    }
                 }
             }
         }
     }
-}
