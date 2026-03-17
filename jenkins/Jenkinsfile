@@ -1,17 +1,11 @@
 pipeline {
     agent any 
 
-    tools {
-        gradle 'gradle-baran-clinic'
-    }
-
     stages {
         stage('Unit Tests - Backend') {
             steps {
-                echo 'Running Unit Tests'
-                withGradle() {
-                    dir ('src/test/java/com/example/baranclinic/crm/domain/service')
-                    sh './gradlew clean test'
+                dir ('src/test/java/com/example/baranclinic/crm/domain/service')
+                sh './gradlew clean test'
                 }
             }
         }
