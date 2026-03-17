@@ -1,19 +1,17 @@
 pipeline {
-    agent any 
+    agent any
 
     tools {
-        gradle 'gradle-baran-clinic'
+        gradle 'gradle'
     }
 
     stages {
         stage('Unit Tests - Backend') {
             steps {
-                    dir ('baran-clinic/src/test/com/example/baranclinic/crm/domain/common') {
-                        withGradle() {
-                            sh './gradlew clean test'
-                        }
-                    }
+                withGradle(gradleWrapperFile: './gradlew') {
+                    sh './gradlew clean test --tests com.common.*'
                 }
             }
         }
     }
+}
