@@ -5,6 +5,10 @@ pipeline {
         gradle 'gradle-baran-clinic'
     }
 
+    environment {
+          REPORT_PATH='build/test-results/test/*.xml'
+      }
+
     stages {
         stage('Unit Tests - Backend') {
             steps {
