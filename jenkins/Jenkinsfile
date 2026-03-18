@@ -23,7 +23,7 @@ pipeline {
             }
         }
          post {
-            always() {
+            always('Unit Tests - Backend') {
                "${REPORT_PATH}"
             }
         }
