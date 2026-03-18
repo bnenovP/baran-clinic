@@ -8,7 +8,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional
 class DogControllerTest {
 
-    private final String CREATE_DOG_URL = "/api/v1/dogs";
+    private final static String CREATE_DOG_URL = "/api/v1/dogs";
 
     @Autowired
     private MockMvc mockMvc;
@@ -46,7 +45,7 @@ class DogControllerTest {
     }
 
     @Test
-    public void whenCreateNewDogWithExistingOwner_thenReturnCreated() throws Exception {
+    void whenCreateNewDogWithExistingOwner_thenReturnCreated() throws Exception {
         OwnerRequestDTO owner = OwnerRequestDTO.builder()
                 .firstName("John")
                 .lastName("Doe")
@@ -69,7 +68,7 @@ class DogControllerTest {
     }
 
     @Test
-    public void whenCreateNewDogWithoutExistingOwner_thenReturnBadRequest() throws Exception {
+    void whenCreateNewDogWithoutExistingOwner_thenReturnBadRequest() throws Exception {
         DogRequestDTO requestDTO = DogRequestDTO.builder()
                 .breed("German Shepard")
                 .name("Rex")
@@ -85,7 +84,7 @@ class DogControllerTest {
     }
 
     @Test
-    public void whenCreateNewDogWithExistingMicrochip_thenReturnBadRequest() throws Exception {
+    void whenCreateNewDogWithExistingMicrochip_thenReturnBadRequest() throws Exception {
         OwnerRequestDTO owner = OwnerRequestDTO.builder()
                 .firstName("John")
                 .lastName("Doe")
