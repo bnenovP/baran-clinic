@@ -19,7 +19,7 @@ public class RestExceptionHandler {
     }
 
     @ExceptionHandler(value = DogAlreadyExistsException.class)
-    public ResponseEntity<?> handleDogAlreadyExistsException(DogAlreadyExistsException ex) {
+    public ResponseEntity<ErrorResponseDTO> handleDogAlreadyExistsException(DogAlreadyExistsException ex) {
         ErrorResponseDTO error = new ErrorResponseDTO(HttpStatus.BAD_REQUEST, ex.getMessage());
 
         return ResponseEntity.badRequest().body(error);
