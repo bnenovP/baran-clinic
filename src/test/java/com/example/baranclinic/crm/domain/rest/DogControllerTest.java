@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional
 class DogControllerTest {
 
-    private final static String CREATE_DOG_URL = "/api/v1/dogs";
+    private static final String CREATE_DOG_URL = "/api/v1/dogs";
 
     @Autowired
     private MockMvc mockMvc;
