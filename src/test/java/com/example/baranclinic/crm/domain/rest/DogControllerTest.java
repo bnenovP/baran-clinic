@@ -25,7 +25,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(properties = {
         "spring.datasource.url=jdbc:postgresql://localhost:5432/baran_clinic_db",
         "spring.datasource.username=postgres",
-        "spring.datasource.password=admin123"})
+        "spring.datasource.password=admin123",
+        "spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect",
+        "spring.jpa.hibernate.ddl-auto=create-drop"})
 @AutoConfigureMockMvc
 @Transactional
 class DogControllerTest {
