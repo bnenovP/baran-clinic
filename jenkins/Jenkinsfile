@@ -17,7 +17,7 @@ pipeline {
         stage('Repository Tests - Backend') {
             steps {
                sh '''
-               ./gradlew clean test --tests "com.example.baranclinic.crm.domain.repositry.*" \
+               ./gradlew clean test --tests "com.example.baranclinic.crm.domain.repository.*" \
                --tests "com.example.baranclinic.clinic.domain.repository.*"
                '''
             }
