@@ -6,10 +6,8 @@ import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
 
 @ActiveProfiles("test")
-@Testcontainers
 public abstract class AbstractIntegrationTest {
 
-    // Disable Ryuk for CI/Docker-in-Docker
     static {
         System.setProperty("testcontainers Ryuk disabled", "true");
     }
@@ -21,7 +19,6 @@ public abstract class AbstractIntegrationTest {
             .withReuse(true);
 
     static {
-        // Disable Ryuk in CI
         System.setProperty("testcontainers Ryuk disabled", "true");
         POSTGRES.start();
     }
