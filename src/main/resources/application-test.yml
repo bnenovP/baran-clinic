@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    # These values will be overridden dynamically by the container in AbstractIntegrationTest
+    url: jdbc:postgresql://localhost:5432/testdb
+    username: test_user
+    password: test_password
+  jpa:
+    hibernate:
+      ddl-auto: update        # Create/Update schema automatically for tests
+    show-sql: true            # Show SQL queries in console
+    properties:
+      hibernate:
+        format_sql: true      # Pretty print SQL
+  # Optional: Reduce logging noise in tests
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
