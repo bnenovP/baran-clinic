@@ -47,7 +47,7 @@ services:
       - sonarqube_temp:/opt/sonarqube/temp
 
   jenkins:
-    image: image: my-jenkins-with-docker:latest
+    image: my-jenkins-with-docker:latest
     container_name: jenkins
     restart: unless-stopped
     ports:
