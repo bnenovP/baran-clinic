@@ -47,7 +47,7 @@ services:
       - sonarqube_temp:/opt/sonarqube/temp
 
   jenkins:
-    image: jenkins/jenkins:lts
+    image: image: my-jenkins-with-docker:latest
     container_name: jenkins
     restart: unless-stopped
     ports:
@@ -56,6 +56,7 @@ services:
     volumes:
       - jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
+    user: root
     environment:
       - JAVA_OPTS=-Dhudson.model.DirectoryBrowserSupport.CSP="default-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';"
     networks:
