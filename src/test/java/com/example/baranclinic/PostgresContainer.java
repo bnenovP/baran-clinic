@@ -11,6 +11,7 @@ public class PostgresContainer {
                     .withPassword("test_password");
 
     static {
+        System.setProperty("testcontainers Ryuk disabled", "true");
         INSTANCE.start();
     }
 
