@@ -22,5 +22,12 @@ pipeline {
                 }
             }
         }
+        stage('Rest Tests - Backend') {
+            steps {
+                wihGradle() {
+                    sh './gradlew clean test --tests "com.example.baranclinic.crm.domain.rest.*"'
+                }
+            }
+        }
     }
 }
