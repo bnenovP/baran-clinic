@@ -14,19 +14,19 @@ pipeline {
             }
         }
 
+        stage('Repository Tests - Backend') {
+            steps {
+               sh '''
+               ./gradlew clean test --tests "com.example.baranclinic.crm.domain.repositry.*" \
+               --tests "com.example.baranclinic.clinic.domain.repository.*"
+               '''
+            }
+        }
+
         stage('Rest Tests - Backend') {
             steps {
                sh './gradlew clean test --tests "com.example.baranclinic.crm.domain.rest.*"'
             }
         }
-
-        stage('Repository Tests - Backend') {
-                    steps {
-                       sh '''
-                       ./gradlew clean test --tests "com.example.baranclinic.crm.domain.repositry.*" \
-                       --tests "com.example.baranclinic.clinic.domain.repository.*"
-                       '''
-                    }
-                }
     }
 }
