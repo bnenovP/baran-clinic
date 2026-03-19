@@ -22,7 +22,10 @@ import java.util.UUID;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
+@SpringBootTest(properties = {
+        "spring.datasource.url=jdbc:postgresql://localhost:5432/baran_clinic_db",
+        "spring.datasource.username=postgres",
+        "spring.datasource.password=admin123"})
 @AutoConfigureMockMvc
 @Transactional
 class DogControllerTest {
