@@ -1,13 +1,9 @@
 pipeline {
-    agent {
-        docker {
-            image 'docker:24.0.5-dind-docker-cli'
-             args '--privileged -v /var/run/docker.sock:/var/run/docker.sock'
-        }
-    }
+    agent any
 
     tools {
-        gradle 'gradle-baran-clinic'
+        gradle 'gradle-baran-clinic',
+        docker 'docker'
     }
 
     environment {
@@ -18,14 +14,12 @@ pipeline {
 
         stage('Unit Tests - Backend') {
             steps {
-                withGradle() {
-                    sh '''
-                    ./gradlew clean test --tests "com.example.baranclinic.clinical.domain.common.*" \
-                    --tests "com.example.baranclinic.clinical.domain.service.*" \
-                    --tests "com.example.baranclinic.crm.domain.common.*" \
-                    --tests "com.example.baranclinic.crm.domain.service.*" \
-                    '''
-                }
+                sh '''
+                ./gradlew clean test --tests "com.example.baranclinic.clinical.domain.common.*" \
+                --tests "com.example.baranclinic.clinical.domain.service.*" \
+                --tests "com.example.baranclinic.crm.domain.common.*" \
+                --tests "com.example.baranclinic.crm.domain.service.*" \
+                '''
             }
         }
 
