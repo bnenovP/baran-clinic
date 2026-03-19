@@ -5,18 +5,30 @@ import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
 
-@ActiveProfiles("test")
+@ActiveProfiles("test") // use application-test.yml for DB config
 public abstract class AbstractIntegrationTest {
 
-    static final PostgreSQLContainer<?> postgres = PostgresContainer.getInstance();
+    // Disable Ryuk for CI/Docker-in-Docker
+    static {
+        System.setProperty("testcontainers Ryuk disabled", "true");
+    }
+
+    // PostgreSQL container
+    protected static final PostgreSQLContainer<?> POSTGRES = new PostgreSQLContainer<>("postgres:15")
+            .withDatabaseName("testdb")
+            .withUsername("test_user")
+            .withPassword("test_password");
+
+    static {
+        // Disable Ryuk in CI
+        System.setProperty("testcontainers Ryuk disabled", "true");
+        POSTGRES.start();
+    }
 
     @DynamicPropertySource
-    static void registerDataSourceProperties(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", postgres::getJdbcUrl);
-        registry.add("spring.datasource.username", postgres::getUsername);
-        registry.add("spring.datasource.password", postgres::getPassword);
-        registry.add("spring.datasource.driver-class-name", postgres::getDriverClassName);
-        registry.add("spring.jpa.database-platform", () -> "org.hibernate.dialect.PostgreSQLDialect");
-        registry.add("spring.jpa.hibernate.ddl-auto", () -> "create-drop"); // schema reset per test run
+    static void registerPgProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", POSTGRES::getJdbcUrl);
+        registry.add("spring.datasource.username", POSTGRES::getUsername);
+        registry.add("spring.datasource.password", POSTGRES::getPassword);
     }
 }
