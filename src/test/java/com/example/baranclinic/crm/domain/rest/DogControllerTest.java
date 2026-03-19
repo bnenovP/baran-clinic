@@ -1,5 +1,6 @@
 package com.example.baranclinic.crm.domain.rest;
 
+import com.example.baranclinic.AbstractIntegrationTest;
 import com.example.baranclinic.crm.domain.dto.request.DogRequestDTO;
 import com.example.baranclinic.crm.domain.dto.request.OwnerRequestDTO;
 import com.example.baranclinic.crm.domain.dto.response.OwnerResponseDTO;
@@ -22,15 +23,10 @@ import java.util.UUID;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest(properties = {
-        "spring.datasource.url=jdbc:postgresql://localhost:5432/baran_clinic_db",
-        "spring.datasource.username=postgres",
-        "spring.datasource.password=admin123",
-        "spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect",
-        "spring.jpa.hibernate.ddl-auto=create-drop"})
+@SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-class DogControllerTest {
+class DogControllerTest extends AbstractIntegrationTest {
 
     private static final String CREATE_DOG_URL = "/api/v1/dogs";
 
