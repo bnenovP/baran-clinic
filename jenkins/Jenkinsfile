@@ -2,7 +2,9 @@ pipeline {
     agent any
 
     tools {
-        gradle 'gradle-baran-clinic',
+        // gradle tool
+        gradle 'gradle-baran-clinic'
+        //docker tool
         docker 'docker'
     }
 
