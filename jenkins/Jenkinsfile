@@ -1,11 +1,8 @@
 pipeline {
-    agent any
+    agent { label 'docker-enabled-agent' }
 
     tools {
-        // gradle tool
         gradle 'gradle-baran-clinic'
-        //docker tool
-        docker 'docker'
     }
 
     environment {
