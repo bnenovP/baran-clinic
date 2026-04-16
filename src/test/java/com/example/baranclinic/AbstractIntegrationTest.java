@@ -18,11 +18,6 @@ public abstract class AbstractIntegrationTest {
             .withPassword("test_password")
             .withReuse(true);
 
-    static {
-        System.setProperty("testcontainers.ryuk.disabled", "true");
-        POSTGRES.start();
-    }
-
     @DynamicPropertySource
     static void registerPgProperties(DynamicPropertyRegistry registry) {
         registry.add("spring.datasource.url", POSTGRES::getJdbcUrl);
