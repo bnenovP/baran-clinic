@@ -1,12 +1,12 @@
 package com.example.baranclinic.crm.domain.repository;
 
-import com.example.baranclinic.AbstractIntegrationTest;
 import com.example.baranclinic.crm.domain.entity.Dog;
 import com.example.baranclinic.crm.domain.entity.Owner;
 import com.example.baranclinic.crm.domain.model.Address;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
+import org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -17,7 +17,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
-class OwnerRepositoryTest extends AbstractIntegrationTest {
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+class OwnerRepositoryTest {
 
     @Autowired
     private OwnerRepository ownerRepository;
