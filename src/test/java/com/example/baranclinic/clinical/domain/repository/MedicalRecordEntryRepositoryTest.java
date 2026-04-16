@@ -1,6 +1,5 @@
 package com.example.baranclinic.clinical.domain.repository;
 
-import com.example.baranclinic.AbstractIntegrationTest;
 import com.example.baranclinic.clinical.domain.entity.MedicalRecordEntry;
 import com.example.baranclinic.clinical.domain.entity.Provider;
 import com.example.baranclinic.crm.domain.entity.Dog;
@@ -11,6 +10,7 @@ import com.example.baranclinic.crm.domain.repository.OwnerRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
+import org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -19,7 +19,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataJpaTest
-class MedicalRecordEntryRepositoryTest extends AbstractIntegrationTest {
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+class MedicalRecordEntryRepositoryTest {
 
     @Autowired
     private MedicalRecordEntryRepository medicalRecordEntryRepository;
