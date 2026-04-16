@@ -12,6 +12,7 @@ public abstract class AbstractIntegrationTest {
         System.setProperty("testcontainers Ryuk disabled", "true");
     }
 
+    @Container
     protected static final PostgreSQLContainer<?> POSTGRES = new PostgreSQLContainer<>("postgres:15")
             .withDatabaseName("testdb")
             .withUsername("test_user")
