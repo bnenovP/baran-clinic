@@ -10,7 +10,7 @@ import org.testcontainers.junit.jupiter.Container;
 public abstract class AbstractIntegrationTest {
 
     static {
-        System.setProperty("testcontainers Ryuk disabled", "true");
+        System.setProperty("testcontainers.ryuk.disabled", "true");
     }
 
     @Container
