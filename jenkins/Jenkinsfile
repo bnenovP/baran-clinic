@@ -13,7 +13,7 @@ pipeline {
         stage('Unit Tests - Backend') {
             steps {
                 sh '''
-                ./gradlew clean test --tests "com.example.baranclinic.clinical.domain.common.*" \
+                ./gradlew test --tests "com.example.baranclinic.clinical.domain.common.*" \
                 --tests "com.example.baranclinic.clinical.domain.service.*" \
                 --tests "com.example.baranclinic.crm.domain.common.*" \
                 --tests "com.example.baranclinic.crm.domain.service.*" \
@@ -24,7 +24,7 @@ pipeline {
         stage('Repository Tests - Backend') {
             steps {
                sh '''
-               ./gradlew clean test --tests "com.example.baranclinic.crm.domain.repository.*" \
+               ./gradlew test --tests "com.example.baranclinic.crm.domain.repository.*" \
                --tests "com.example.baranclinic.clinic.domain.repository.*"
                '''
             }
@@ -32,7 +32,7 @@ pipeline {
 
         stage('Rest Tests - Backend') {
             steps {
-               sh './gradlew clean test --tests "com.example.baranclinic.crm.domain.rest.*"'
+               sh './gradlew test --tests "com.example.baranclinic.crm.domain.rest.*"'
             }
         }
     }
