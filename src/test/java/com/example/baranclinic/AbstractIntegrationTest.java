@@ -19,7 +19,7 @@ public abstract class AbstractIntegrationTest {
             .withReuse(true);
 
     static {
-        System.setProperty("testcontainers Ryuk disabled", "true");
+        System.setProperty("testcontainers.ryuk.disabled", "true");
         POSTGRES.start();
     }
 
