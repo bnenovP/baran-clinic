@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        TESTCONTAINERS_RYUK_DISABLED = 'true'
+        DOCKER_HOST = 'unix:///var/run/docker.sock'
+    }
+
     stages {
 
     stage('Build') {
