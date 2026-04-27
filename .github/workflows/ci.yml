@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  unit-tests-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'adopt'
+          java-version: '21'
+
+      - name: Execute Backend Tests
+        working-directory: ./baranclinic
+        run: |
+          ./gradlew test --tests "com.example.baranclinic.clinical.domain.common.*" \
+          --tests "com.example.baranclinic.clinical.domain.service.*" \
+          --tests "com.example.baranclinic.crm.domain.common.*" \
+          --tests "com.example.baranclinic.crm.domain.service.*"
