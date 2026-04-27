@@ -19,7 +19,7 @@ jobs:
           java-version: '21'
 
       - name: Execute Backend Tests
-        working-directory: ./baranclinic
+        working-directory: ./
         run: |
           ./gradlew test --tests "com.example.baranclinic.clinical.domain.common.*" \
           --tests "com.example.baranclinic.clinical.domain.service.*" \
