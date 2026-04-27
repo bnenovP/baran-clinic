@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        TESTCONTAINERS_RYUK_DISABLED = 'true'
-        DOCKER_HOST = 'unix:///var/run/docker.sock'
-    }
-
     stages {
 
     stage('Build') {
@@ -38,6 +33,19 @@ pipeline {
         stage('Rest Tests - Backend') {
             steps {
                sh './gradlew test --tests "com.example.baranclinic.crm.domain.rest.*"'
+            }
+        }
+
+        stage('Launch Application') {
+            agent {
+                docker {
+                    image 'docker:27.5.1'
+                    reuseNode true
+                    args '-v /var/run/docker.sock:/var/run/docker.sock -u 0'
+                }
+            }
+            steps {
+                sh 'docker-compose up --build -d'
             }
         }
     }
